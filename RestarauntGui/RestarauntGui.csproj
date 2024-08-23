@@ -62,22 +62,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="formLogin.cs">
+    <Compile Include="frmHome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formLogin.Designer.cs">
-      <DependentUpon>formLogin.cs</DependentUpon>
+    <Compile Include="frmHome.Designer.cs">
+      <DependentUpon>frmHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="formMain.cs">
+    <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formMain.Designer.cs">
-      <DependentUpon>formMain.cs</DependentUpon>
+    <Compile Include="frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="formLogin.resx">
-      <DependentUpon>formLogin.cs</DependentUpon>
+    <EmbeddedResource Include="frmHome.resx">
+      <DependentUpon>frmHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -111,6 +123,60 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Custom-Icon-Design-Pretty-Office-2-Man.256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Restaurant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Home2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Home21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Medium Priority.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Medium Priority2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Product.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Product2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Table2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Name Tag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Name Tag2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\POS Terminal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\POS Terminal2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chef Hat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chef Hat2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Installing Updates.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Installing Updates2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

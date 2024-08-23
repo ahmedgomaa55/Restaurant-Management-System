@@ -11,15 +11,13 @@ using System.Windows.Forms;
 
 namespace RestarauntGui
 {
-    public partial class formLogin : Form
+    public partial class frmLogin : Form
     {
-        private readonly UserService _userService;
 
-        public formLogin()
+        public frmLogin()
         {
             InitializeComponent();
-            RestaurantContext context = new RestaurantContext();
-            _userService = new UserService(context);
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -32,11 +30,11 @@ namespace RestarauntGui
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            bool isValid = _userService.isValidUser(username, password);
+            bool isValid = UserService.isValidUser(username, password);
             if (isValid)
             {
                 this.Hide();
-                formMain frm = new formMain();
+                frmMain frm = new frmMain();
                 frm.Show();
             }
             else
@@ -45,5 +43,6 @@ namespace RestarauntGui
                 return;
             }
         }
+
     }
 }

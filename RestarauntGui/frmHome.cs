@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace RestarauntGui
 {
-    public partial class formMain : Form
+    public partial class frmHome : Form
     {
-        public formMain()
+        public frmHome()
         {
             InitializeComponent();
         }
