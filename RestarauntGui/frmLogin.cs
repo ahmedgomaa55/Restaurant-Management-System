@@ -27,6 +27,8 @@ namespace RestarauntGui
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            
+
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
@@ -42,6 +44,7 @@ namespace RestarauntGui
                 guna2MessageDialog1.Show("Invalid Username or Password!");
                 return;
             }
+            
         }
 
     }

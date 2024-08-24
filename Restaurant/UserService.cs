@@ -16,12 +16,16 @@ namespace Restaurant
         public static bool isValidUser(string username, string password)
         {
             // Check if the user exists
-             var user = _context.Users
-                        .FirstOrDefault(u => u.Username == username && u.Password == password);
-            User = _context.Users
-                        .FirstOrDefault(u => u.Username == username && u.Password == password).Username;
+            var user = _context.Users
+                  .FirstOrDefault(u => u.Username == username && u.Password == password);
 
-            return user != null;
+            if (user != null)
+            {
+                User = user.Username;
+                return true;
+            }
+
+            return false;
         }
     }
 
