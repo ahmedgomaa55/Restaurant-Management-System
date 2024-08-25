@@ -18,6 +18,8 @@ namespace RestarauntGui
             InitializeComponent();
         }
 
+
+
         public  void AddControls(Form f)
         {
             ControlsPanel.Controls.Clear();
@@ -47,5 +49,14 @@ namespace RestarauntGui
             AddControls(new frmCategoryView());
 
         }
+
+        private void btnTable_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmTableView());
+
+        }
+
+      
+
     }
 }

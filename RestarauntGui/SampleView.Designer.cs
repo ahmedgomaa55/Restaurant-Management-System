@@ -35,15 +35,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
             this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnAdd = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             this.dgvSno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvedit = new System.Windows.Forms.DataGridViewImageColumn();
             this.dvgdel = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnAdd = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,6 +134,55 @@
             this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
+            // dgvSno
+            // 
+            this.dgvSno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvSno.FillWeight = 70F;
+            this.dgvSno.HeaderText = "Sr#";
+            this.dgvSno.MinimumWidth = 70;
+            this.dgvSno.Name = "dgvSno";
+            this.dgvSno.ReadOnly = true;
+            this.dgvSno.Width = 70;
+            // 
+            // dgvid
+            // 
+            this.dgvid.HeaderText = "id";
+            this.dgvid.MinimumWidth = 6;
+            this.dgvid.Name = "dgvid";
+            this.dgvid.ReadOnly = true;
+            this.dgvid.Visible = false;
+            // 
+            // dgvName
+            // 
+            this.dgvName.HeaderText = "Name";
+            this.dgvName.MinimumWidth = 6;
+            this.dgvName.Name = "dgvName";
+            this.dgvName.ReadOnly = true;
+            // 
+            // dgvedit
+            // 
+            this.dgvedit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvedit.FillWeight = 50F;
+            this.dgvedit.HeaderText = "";
+            this.dgvedit.Image = global::RestarauntGui.Properties.Resources.Pen;
+            this.dgvedit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dgvedit.MinimumWidth = 50;
+            this.dgvedit.Name = "dgvedit";
+            this.dgvedit.ReadOnly = true;
+            this.dgvedit.Width = 50;
+            // 
+            // dvgdel
+            // 
+            this.dvgdel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dvgdel.FillWeight = 50F;
+            this.dvgdel.HeaderText = "";
+            this.dvgdel.Image = global::RestarauntGui.Properties.Resources.Full_Recycle_Bin;
+            this.dvgdel.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dvgdel.MinimumWidth = 50;
+            this.dvgdel.Name = "dvgdel";
+            this.dvgdel.ReadOnly = true;
+            this.dvgdel.Width = 50;
+            // 
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -194,55 +243,6 @@
             this.txtSearch.TabIndex = 0;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
-            // dgvSno
-            // 
-            this.dgvSno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvSno.FillWeight = 70F;
-            this.dgvSno.HeaderText = "Sr#";
-            this.dgvSno.MinimumWidth = 70;
-            this.dgvSno.Name = "dgvSno";
-            this.dgvSno.ReadOnly = true;
-            this.dgvSno.Width = 70;
-            // 
-            // dgvid
-            // 
-            this.dgvid.HeaderText = "id";
-            this.dgvid.MinimumWidth = 6;
-            this.dgvid.Name = "dgvid";
-            this.dgvid.ReadOnly = true;
-            this.dgvid.Visible = false;
-            // 
-            // dgvName
-            // 
-            this.dgvName.HeaderText = "Name";
-            this.dgvName.MinimumWidth = 6;
-            this.dgvName.Name = "dgvName";
-            this.dgvName.ReadOnly = true;
-            // 
-            // dgvedit
-            // 
-            this.dgvedit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvedit.FillWeight = 50F;
-            this.dgvedit.HeaderText = "";
-            this.dgvedit.Image = global::RestarauntGui.Properties.Resources.Pen;
-            this.dgvedit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.dgvedit.MinimumWidth = 50;
-            this.dgvedit.Name = "dgvedit";
-            this.dgvedit.ReadOnly = true;
-            this.dgvedit.Width = 50;
-            // 
-            // dvgdel
-            // 
-            this.dvgdel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dvgdel.FillWeight = 50F;
-            this.dvgdel.HeaderText = "";
-            this.dvgdel.Image = global::RestarauntGui.Properties.Resources.Full_Recycle_Bin;
-            this.dvgdel.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.dvgdel.MinimumWidth = 50;
-            this.dvgdel.Name = "dvgdel";
-            this.dvgdel.ReadOnly = true;
-            this.dvgdel.Width = 50;
-            // 
             // SampleView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -271,7 +271,6 @@
         public System.Windows.Forms.Label label2;
         public Guna.UI2.WinForms.Guna2TextBox txtSearch;
         public Guna.UI2.WinForms.Guna2ImageButton btnAdd;
-        private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSno;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvid;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;
@@ -279,5 +278,6 @@
         private System.Windows.Forms.DataGridViewImageColumn dvgdel;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        public Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
     }
 }
