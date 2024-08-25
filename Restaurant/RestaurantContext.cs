@@ -17,6 +17,8 @@ namespace Restaurant
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
