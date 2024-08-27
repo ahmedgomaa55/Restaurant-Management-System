@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Restaurant.RestaurantContext";
         }
 
         protected override void Seed(Restaurant.RestaurantContext context)

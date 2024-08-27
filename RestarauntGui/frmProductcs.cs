@@ -12,47 +12,68 @@ using System.Windows.Forms;
 
 namespace RestarauntGui
 {
-    public partial class frmCategoryView : Form
+    public partial class frmProductcs : Form
     {
-        public frmCategoryView()
+        public frmProductcs()
         {
             InitializeComponent();
-        }
-
-        public void GetData()
-        {
-            using (RestaurantContext context = new RestaurantContext())
-            {
-                var data = context.Categories.Where(c => string.IsNullOrEmpty(txtSearch.Text) || c.Name.Contains(txtSearch.Text)).ToList();
-
-                // Set the DataSource of the DataGridView to the retrieved data
-                guna2DataGridView1.DataSource = data;
-
-                // If you need to manually set the DataPropertyName for specific columns:
-                guna2DataGridView1.Columns["dgvid"].DataPropertyName = "Id";  //  'Id' is a property in the Categories class
-                guna2DataGridView1.Columns["dgvName"].DataPropertyName = "Name";  // 'Name' is a property in the Categories class
-            }
-        }
-        private void frmCategoryView_Load(object sender, EventArgs e)
-        {
-            GetData();
-        }
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            frmCategoryAdd frm = new frmCategoryAdd();
-            frm.ShowDialog();
-            GetData();
         }
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             GetData();
 
         }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            frmProductAdd frm = new frmProductAdd();
+            frm.ShowDialog();
+            GetData();
+        }
 
-        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        public void GetData()
+        {
+            using (RestaurantContext context = new RestaurantContext())
+            {
+                // Retrieve the data using a LINQ query
+                var data = context.Products
+    .Where(p => string.IsNullOrEmpty(txtSearch.Text) || p.PName.Contains(txtSearch.Text))
+    .Select(p => new
+    {
+        p.PID,
+        p.PName,
+        p.PPrice,
+        CategoryID = p.Category.ID,
+        CategoryName = p.Category.Name
+    })
+    .ToList();
+
+
+                productgrid.DataSource = data;
+
+                // Set the DataPropertyName for specific columns
+                productgrid.Columns["dgvid"].DataPropertyName = "PID";  // 'Id' is a property in the Categories class
+                productgrid.Columns["dgvName"].DataPropertyName = "PName";  // 'Name' is a property in the Categories class
+                productgrid.Columns["dgvPrice"].DataPropertyName = "PPrice";  // 'Phone' is a property in the Categories class
+                productgrid.Columns["dgvcatID"].DataPropertyName = "CategoryID";  // '
+                productgrid.Columns["dgvCat"].DataPropertyName = "CategoryName";  // '
+
+            }
+        }
+
+        private void frmProductcs_Load(object sender, EventArgs e)
+        {
+            GetData();
+        }
+
+        private void productgrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            if (guna2DataGridView1.CurrentCell.OwningColumn.Name == "dgvdel")
+        }
+
+      
+        private void productgrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (productgrid.CurrentCell.OwningColumn.Name == "dgvdel")
             {
                 guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
                 guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.YesNo;
@@ -64,16 +85,16 @@ namespace RestarauntGui
                     {
 
                         // Get the ID of the selected category
-                        int categoryId = Convert.ToInt32(guna2DataGridView1.CurrentRow.Cells["dgvid"].Value);
+                        int prodID = Convert.ToInt32(productgrid.CurrentRow.Cells["dgvid"].Value);
 
                         // Find the category to remove
-                        var removedCat = context.Categories.FirstOrDefault(c => c.ID == categoryId);
+                        var removedprod = context.Products.FirstOrDefault(c => c.PID == prodID);
 
                         // Check if the category was found
-                        if (removedCat != null)
+                        if (removedprod != null)
                         {
                             // Remove the category from the context
-                            context.Categories.Remove(removedCat);
+                            context.Products.Remove(removedprod);
 
                             // Save changes to the database
                             context.SaveChanges();
@@ -86,12 +107,11 @@ namespace RestarauntGui
                             GetData();
                         }
                     }
-
                 }
             }
         }
 
-        private void guna2DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void productgrid_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
             Guna.UI2.WinForms.Guna2DataGridView gv = (Guna.UI2.WinForms.Guna2DataGridView)sender;
             int count = 0;
@@ -100,11 +120,6 @@ namespace RestarauntGui
                 count++;
                 row.Cells[0].Value = count;
             }
-        }
-
-        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

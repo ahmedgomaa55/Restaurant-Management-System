@@ -66,6 +66,16 @@ namespace RestarauntGui
         {
             this.Hide();
         }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void frmCategoryAdd_Load(object sender, EventArgs e)
+        {
+
+        }
     }
     }
 

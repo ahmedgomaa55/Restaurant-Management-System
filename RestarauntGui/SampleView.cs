@@ -26,5 +26,10 @@ namespace RestarauntGui
         {
 
         }
+
+        private void SampleView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

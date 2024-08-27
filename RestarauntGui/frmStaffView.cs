@@ -12,34 +12,44 @@ using System.Windows.Forms;
 
 namespace RestarauntGui
 {
-    public partial class frmCategoryView : Form
+    public partial class frmStaffView : Form
     {
-        public frmCategoryView()
+        public frmStaffView()
         {
             InitializeComponent();
         }
+
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
 
         public void GetData()
         {
             using (RestaurantContext context = new RestaurantContext())
             {
-                var data = context.Categories.Where(c => string.IsNullOrEmpty(txtSearch.Text) || c.Name.Contains(txtSearch.Text)).ToList();
+                var data = context.Staff
+                    .Where(c => string.IsNullOrEmpty(txtSearch.Text) || c.SName.Contains(txtSearch.Text)).ToList();
 
                 // Set the DataSource of the DataGridView to the retrieved data
-                guna2DataGridView1.DataSource = data;
+                staffgridview.DataSource = data;
 
-                // If you need to manually set the DataPropertyName for specific columns:
-                guna2DataGridView1.Columns["dgvid"].DataPropertyName = "Id";  //  'Id' is a property in the Categories class
-                guna2DataGridView1.Columns["dgvName"].DataPropertyName = "Name";  // 'Name' is a property in the Categories class
+                // Set the DataPropertyName for specific columns
+                staffgridview.Columns["dgvid"].DataPropertyName = "StaffID";  // 'Id' is a property in the Categories class
+                staffgridview.Columns["dgvName"].DataPropertyName = "SName";  // 'Name' is a property in the Categories class
+                staffgridview.Columns["dgvPhone"].DataPropertyName = "SPhone";  // 'Phone' is a property in the Categories class
+                staffgridview.Columns["dgvRole"].DataPropertyName = "Category";  // 'Role' is a property in the Categories class
             }
         }
-        private void frmCategoryView_Load(object sender, EventArgs e)
+        private void frmStaffView_Load(object sender, EventArgs e)
         {
             GetData();
         }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmCategoryAdd frm = new frmCategoryAdd();
+            frmStaffAdd frm = new frmStaffAdd();
             frm.ShowDialog();
             GetData();
         }
@@ -49,10 +59,11 @@ namespace RestarauntGui
 
         }
 
-        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
+ 
 
-            if (guna2DataGridView1.CurrentCell.OwningColumn.Name == "dgvdel")
+        private void staffgridview_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (staffgridview.CurrentCell.OwningColumn.Name == "dgvdel")
             {
                 guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
                 guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.YesNo;
@@ -64,16 +75,16 @@ namespace RestarauntGui
                     {
 
                         // Get the ID of the selected category
-                        int categoryId = Convert.ToInt32(guna2DataGridView1.CurrentRow.Cells["dgvid"].Value);
+                        int staffId = Convert.ToInt32(staffgridview.CurrentRow.Cells["dgvid"].Value);
 
                         // Find the category to remove
-                        var removedCat = context.Categories.FirstOrDefault(c => c.ID == categoryId);
+                        var removedCat = context.Staff.FirstOrDefault(c => c.StaffID == staffId);
 
                         // Check if the category was found
                         if (removedCat != null)
                         {
                             // Remove the category from the context
-                            context.Categories.Remove(removedCat);
+                            context.Staff.Remove(removedCat);
 
                             // Save changes to the database
                             context.SaveChanges();
@@ -86,12 +97,11 @@ namespace RestarauntGui
                             GetData();
                         }
                     }
-
                 }
             }
         }
 
-        private void guna2DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void staffgridview_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             Guna.UI2.WinForms.Guna2DataGridView gv = (Guna.UI2.WinForms.Guna2DataGridView)sender;
             int count = 0;
@@ -100,11 +110,6 @@ namespace RestarauntGui
                 count++;
                 row.Cells[0].Value = count;
             }
-        }
-
-        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

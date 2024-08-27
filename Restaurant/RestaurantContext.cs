@@ -19,6 +19,8 @@ namespace Restaurant
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Table> Tables { get; set; }
+        public DbSet<Staff>  Staff { get; set; }
+        public DbSet<Product> Products { get; set; }
 
 
 

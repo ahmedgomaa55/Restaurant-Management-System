@@ -56,7 +56,15 @@ namespace RestarauntGui
 
         }
 
-      
+        private void btnStaff_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmStaffView());
+        }
 
+        private void btnProduct_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmProductcs());
+
+        }
     }
 }
