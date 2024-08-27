@@ -66,5 +66,11 @@ namespace RestarauntGui
             AddControls(new frmProductcs());
 
         }
+
+        private void btnPOS_Click(object sender, EventArgs e)
+        {
+            frmPOS frm = new frmPOS();
+            frm.Show();
+        }
     }
 }
