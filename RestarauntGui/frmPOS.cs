@@ -55,9 +55,22 @@ namespace RestarauntGui
                     b.Size = new Size(149, 45);
                     b.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
                     b.Text = item.Name;
+                    b.Click += new EventHandler(_Click);
                     categorypanal.Controls.Add(b);
                 }
         }
+
+        private void _Click(object sender, EventArgs e)
+        {
+            Guna.UI2.WinForms.Guna2Button b = (Guna.UI2.WinForms.Guna2Button)sender;
+
+            foreach (var item in Productpanal.Controls)
+            {
+                var pro = (ucProduct)item;
+                pro.Visible = pro.PCategory.ToLower().Contains(b.Text.Trim().ToLower());
+            }
+        }
+
         void AddItems(string id,string name,string cat, string price,Image image)
         {
             var w = new ucProduct()
@@ -76,16 +89,16 @@ namespace RestarauntGui
                  {
                      if (Convert.ToInt32(item.Cells["dgvid"].Value) == wdg.ID)
                      {
-                         item.Cells["dgvQty"].Value = (int.Parse(item.Cells["dgvQty"].ToString()) + 1).ToString();
-                         item.Cells["dvgamount"].Value = int.Parse(item.Cells["dgvQty"].ToString()) *
-                         double.Parse(item.Cells["dgvprice"].ToString());
-
+                         item.Cells["dgvQty"].Value = int.Parse(item.Cells["dgvQty"].Value.ToString()) + 1;
+                         item.Cells["dgvAmount"].Value = int.Parse(item.Cells["dgvQty"].Value.ToString()) *
+                                                            double.Parse(item.Cells["dgvprice"].Value.ToString());
+                         return;
                      }
 
 
                  }
-                 guna2DataGridView1.Rows.Add(new object[] { 0, wdg.ID, wdg.PName, wdg.PPrice, wdg.PImage });
-
+                 guna2DataGridView1.Rows.Add(new object[] { 0, wdg.ID, wdg.PName,1,wdg.PPrice, wdg.PPrice });
+                 GetTotal();
              };
         }
         void LoadProducts()
@@ -107,6 +120,32 @@ namespace RestarauntGui
                 var pro = (ucProduct)item;
                 pro.Visible = pro.PName.ToLower().Contains(txtSearch.Text.Trim().ToLower()); 
             }
+        }
+
+        private void btnTakeAway_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            int count = 0;
+            foreach(DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                count++;
+                row.Cells[0].Value = count;
+            }
+        }
+
+        private void GetTotal()
+        {
+            double tot = 0;
+            lbTotal.Text = "";
+            foreach (DataGridViewRow item in guna2DataGridView1.Rows)
+            {
+                tot += double.Parse(item.Cells["dgvAmount"].Value.ToString());
+            }
+            lbTotal.Text = tot.ToString("N2");
         }
     }
 }
