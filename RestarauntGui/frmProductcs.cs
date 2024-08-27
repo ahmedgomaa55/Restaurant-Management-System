@@ -121,5 +121,10 @@ namespace RestarauntGui
                 row.Cells[0].Value = count;
             }
         }
+
+        private void txtSearch_TextChanged_1(object sender, EventArgs e)
+        {
+            GetData();
+        }
     }
 }
