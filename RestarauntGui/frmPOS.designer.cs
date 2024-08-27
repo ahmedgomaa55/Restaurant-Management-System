@@ -88,7 +88,7 @@ namespace RestarauntGui
             this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(89)))));
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1243, 100);
+            this.guna2Panel1.Size = new System.Drawing.Size(1396, 100);
             this.guna2Panel1.TabIndex = 0;
             // 
             // btnLogout
@@ -97,7 +97,7 @@ namespace RestarauntGui
             this.btnLogout.BackColor = System.Drawing.Color.Transparent;
             this.btnLogout.Image = global::RestarauntGui.Properties.Resources.Logout_Rounded;
             this.btnLogout.ImageRotate = 0F;
-            this.btnLogout.Location = new System.Drawing.Point(1144, 12);
+            this.btnLogout.Location = new System.Drawing.Point(1297, 12);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(77, 64);
             this.btnLogout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -319,7 +319,7 @@ namespace RestarauntGui
             this.guna2Panel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(89)))));
             this.guna2Panel2.Location = new System.Drawing.Point(0, 535);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1243, 100);
+            this.guna2Panel2.Size = new System.Drawing.Size(1396, 100);
             this.guna2Panel2.TabIndex = 1;
             // 
             // categorypanal
@@ -334,7 +334,7 @@ namespace RestarauntGui
             this.Productpanal.AutoScroll = true;
             this.Productpanal.Location = new System.Drawing.Point(170, 158);
             this.Productpanal.Name = "Productpanal";
-            this.Productpanal.Size = new System.Drawing.Size(543, 371);
+            this.Productpanal.Size = new System.Drawing.Size(827, 381);
             this.Productpanal.TabIndex = 7;
             // 
             // guna2DataGridView1
@@ -371,13 +371,13 @@ namespace RestarauntGui
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.Location = new System.Drawing.Point(750, 155);
+            this.guna2DataGridView1.Location = new System.Drawing.Point(1003, 155);
             this.guna2DataGridView1.Name = "guna2DataGridView1";
             this.guna2DataGridView1.ReadOnly = true;
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowHeadersWidth = 51;
             this.guna2DataGridView1.RowTemplate.Height = 24;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(481, 374);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(381, 374);
             this.guna2DataGridView1.TabIndex = 6;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -499,7 +499,7 @@ namespace RestarauntGui
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(1079, 41);
+            this.label2.Location = new System.Drawing.Point(1232, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 30);
             this.label2.TabIndex = 13;
@@ -551,7 +551,7 @@ namespace RestarauntGui
             this.lbTotal.BackColor = System.Drawing.Color.Transparent;
             this.lbTotal.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotal.ForeColor = System.Drawing.Color.White;
-            this.lbTotal.Location = new System.Drawing.Point(1139, 41);
+            this.lbTotal.Location = new System.Drawing.Point(1292, 41);
             this.lbTotal.Name = "lbTotal";
             this.lbTotal.Size = new System.Drawing.Size(54, 30);
             this.lbTotal.TabIndex = 14;
@@ -561,7 +561,7 @@ namespace RestarauntGui
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1243, 635);
+            this.ClientSize = new System.Drawing.Size(1396, 635);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.guna2DataGridView1);
             this.Controls.Add(this.Productpanal);
