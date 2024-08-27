@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,8 @@ namespace RestarauntGui
         {
             guna2DataGridView1.BorderStyle = BorderStyle.FixedSingle;
             AddCategory();
+            Productpanal.Controls.Clear();
+            LoadProducts();
         }
         void AddCategory()
         {
@@ -54,8 +57,56 @@ namespace RestarauntGui
                     b.Text = item.Name;
                     categorypanal.Controls.Add(b);
                 }
-            
+        }
+        void AddItems(string id,string name,string cat, string price,Image image)
+        {
+            var w = new ucProduct()
+            {
+                PName = name,
+                PPrice = price,
+                PCategory = cat,
+                PImage = image,
+                ID = Convert.ToInt32(id),
+            };
+            Productpanal.Controls.Add(w);
+            w.onSelect += (s, e) =>
+             {
+                 var wdg = (ucProduct)s;
+                 foreach (DataGridViewRow item in guna2DataGridView1.Rows)
+                 {
+                     if (Convert.ToInt32(item.Cells["dgvid"].Value) == wdg.ID)
+                     {
+                         item.Cells["dgvQty"].Value = (int.Parse(item.Cells["dgvQty"].ToString()) + 1).ToString();
+                         item.Cells["dvgamount"].Value = int.Parse(item.Cells["dgvQty"].ToString()) *
+                         double.Parse(item.Cells["dgvprice"].ToString());
 
+                     }
+
+
+                 }
+                 guna2DataGridView1.Rows.Add(new object[] { 0, wdg.ID, wdg.PName, wdg.PPrice, wdg.PImage });
+
+             };
+        }
+        void LoadProducts()
+        {
+            var products = context.Products;
+            foreach (var item in products)
+            {
+                Byte[]imagarray=(byte[])item.PImage;
+                byte[] immagbytearray = imagarray;
+                AddItems(item.PID.ToString(), item.PName.ToString(), item.Category.Name.ToString(), item.PPrice.ToString()
+                    , Image.FromStream(new MemoryStream(imagarray)));
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            foreach (var item in Productpanal.Controls)
+            {
+                var pro = (ucProduct)item;
+                pro.Visible = pro.PName.ToLower().Contains(txtSearch.Text.Trim().ToLower()); 
+            }
         }
     }
 }
