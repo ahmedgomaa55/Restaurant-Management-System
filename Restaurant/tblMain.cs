@@ -36,5 +36,10 @@ namespace Restaurant
 
         public double change { get; set; }
 
+        public int driverID { get; set; }
+        public string CustName { get; set; }
+        public string CustPhone { get; set; }
+
+
     }
 }

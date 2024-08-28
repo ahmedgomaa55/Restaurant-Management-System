@@ -23,7 +23,12 @@ namespace RestarauntGui
         }
 
         public int mainID = 0;
-        public string OrderType;
+        public string OrderType="";
+        public int driverID = 0;
+        public string customerName = "";
+        public string customerPhone = "";
+        
+
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
@@ -41,6 +46,7 @@ namespace RestarauntGui
             AddCategory();
             Productpanal.Controls.Clear();
             LoadProducts();
+            lblDriverName.Text = "";
         }
         void AddCategory()
         {
@@ -170,6 +176,21 @@ namespace RestarauntGui
             lblTable.Visible = false;
             lblWaiter.Visible = false;
             OrderType = "Delivery";
+
+
+            frmAddCustomer frm = new frmAddCustomer();
+            frm.mainID = mainID;
+            frm.OrderType = OrderType;
+            frm.ShowDialog();
+
+            if (frm.txtName.Text != "")  // as takeaway didnot have driver info
+            {
+                driverID = frm.driverID;
+                lblDriverName.Text = "Customer Name: " + frm.txtName.Text + "Phone: " + frm.txtPhone.Text + " Driver: " + frm.cbDriver.Text;
+                lblDriverName.Visible = true;
+                customerName = frm.txtName.Text;
+                customerPhone = frm.txtPhone.Text;
+            }
         }
 
         private void btnTakeAway_Click(object sender, EventArgs e)
@@ -179,11 +200,26 @@ namespace RestarauntGui
             lblTable.Visible = false;
             lblWaiter.Visible = false;
             OrderType = "Take Away";
+
+            frmAddCustomer frm = new frmAddCustomer();
+            frm.mainID = mainID;
+            frm.OrderType = OrderType;
+            frm.ShowDialog();
+
+            if (frm.txtName.Text != "")  // as takeaway didnot have driver info
+            {
+                driverID = frm.driverID;
+                lblDriverName.Text = "Customer Name: " + frm.txtName.Text + "Phone: " + frm.txtPhone.Text;
+                lblDriverName.Visible = true;
+                customerName = frm.txtName.Text;
+                customerPhone = frm.txtPhone.Text;
+            }
         }
 
         private void btnDinIn_Click(object sender, EventArgs e)
         {
             OrderType = "Din IN";
+            lblDriverName.Visible = false;
             // create a form for table selection and waiter selection
 
             frmTableSelect frm = new frmTableSelect();
@@ -217,7 +253,8 @@ namespace RestarauntGui
 
         private void btnKot_Click(object sender, EventArgs e)
         {
-            // Save the data in database 
+            // Save the data in database
+            // need to add field to table to store additional info
 
             int detailID = 0;
 
@@ -238,7 +275,11 @@ namespace RestarauntGui
                         orderType = OrderType,
                         Total = Convert.ToDouble(0),
                         received = Convert.ToDouble(0),
-                        change = Convert.ToDouble(0)
+                        change = Convert.ToDouble(0),
+                        driverID =driverID,
+                        CustName=customerName,
+                        CustPhone =customerPhone
+                        
                     };
 
                     context.TableMain.Add(tableMain);
@@ -299,6 +340,7 @@ namespace RestarauntGui
                 lblTable.Visible = false;
                 lblWaiter.Visible = false;
                 lblTotal.Text = "00";
+                lblDriverName.Text = "";
 
             }
 
@@ -318,6 +360,7 @@ namespace RestarauntGui
             if (frm.MainID > 0)
             {
                 id = frm.MainID;
+                mainID = frm.MainID;
                 LoadEntries();
             }
         }
@@ -402,6 +445,104 @@ namespace RestarauntGui
             lblTable.Visible = false;
             lblWaiter.Visible = false;
             lblTotal.Text = "00";
+        }
+
+        private void btnHold_Click(object sender, EventArgs e)
+        {
+
+            // Save the data in database 
+
+            int detailID = 0;
+            if (OrderType == "")
+            {
+                guna2MessageDialog1.Show("Please Select Order Type");
+                return;
+            }
+
+            using (RestaurantContext context = new RestaurantContext())
+            {
+
+
+                if (mainID == 0)  // Insert into tblMain
+                {
+                    tblMain tableMain = new tblMain()
+                    {
+                        //MainID = mainID,
+                        aDate = Convert.ToDateTime(DateTime.Now.Date),
+                        aTime = DateTime.Now.ToShortTimeString(),
+                        TableName = lblTable.Text,
+                        WaiterName = lblWaiter.Text,
+                        status = "Hold",
+                        orderType = OrderType,
+                        Total = Convert.ToDouble(0),
+                        received = Convert.ToDouble(0),
+                        change = Convert.ToDouble(0),
+                        driverID = driverID,
+                        CustName = customerName,
+                        CustPhone = customerPhone
+                    };
+
+                    context.TableMain.Add(tableMain);
+
+
+                }
+
+                else    // Update
+                {
+                    var tableMainUpdated = context.TableMain.Where(t => t.MainID == mainID).Select(t => t).FirstOrDefault();
+                    tableMainUpdated.status = "Hold";
+                    tableMainUpdated.Total = Convert.ToDouble(0);
+                    tableMainUpdated.received = Convert.ToDouble(0);
+                    tableMainUpdated.change = Convert.ToDouble(0);
+                }
+
+                context.SaveChanges();
+                mainID = context.TableMain.OrderByDescending(m => m.MainID).Select(c => c.MainID).FirstOrDefault();
+
+
+
+                foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+                {
+                    detailID = Convert.ToInt32(row.Cells["dgvid"].Value);
+
+                    if (detailID == 0)  // insert into tbleDetails
+                    {
+                        tblDetails tbl1 = new tblDetails()
+                        {
+                            DetailID = detailID,
+                            MainID = mainID,
+                            proID = Convert.ToInt32(row.Cells["ProID"].Value),
+                            qty = Convert.ToInt32(row.Cells["dgvQty"].Value),
+                            price = Convert.ToDouble(row.Cells["dgvprice"].Value),
+                            amount = Convert.ToDouble(row.Cells["dgvAmount"].Value)
+
+                        };
+                        context.TableDetails.Add(tbl1);
+                    }
+                    else  // update 
+                    {
+                        var tbl2 = context.TableDetails.Where(t => t.DetailID == detailID).Select(t => t).FirstOrDefault();
+                        tbl2.proID = Convert.ToInt32(row.Cells["ProID"].Value);
+                        tbl2.qty = Convert.ToInt32(row.Cells["dgvQty"].Value);
+                        tbl2.price = Convert.ToDouble(row.Cells["dgvprice"].Value);
+                        tbl2.amount = Convert.ToDouble(row.Cells["dgvAmount"].Value);
+                    }
+                }
+
+                context.SaveChanges();
+                guna2MessageDialog1.Show("Saved Sucessfully");
+
+                mainID = 0;
+                detailID = 0;
+                guna2DataGridView1.Rows.Clear();
+                lblTable.Text = "";
+                lblWaiter.Text = "";
+                lblTable.Visible = false;
+                lblWaiter.Visible = false;
+                lblTotal.Text = "00";
+                lblDriverName.Text = "";
+
+            }
         }
     }
 }

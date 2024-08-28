@@ -65,7 +65,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(101, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(173, 37);
+            this.label1.Size = new System.Drawing.Size(213, 46);
             this.label1.TabIndex = 3;
             this.label1.Text = "Staff Details";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -160,7 +160,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(8, 145);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 19);
+            this.label2.Size = new System.Drawing.Size(56, 23);
             this.label2.TabIndex = 5;
             this.label2.Text = "Name";
             // 
@@ -189,7 +189,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(226, 145);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 19);
+            this.label3.Size = new System.Drawing.Size(59, 23);
             this.label3.TabIndex = 6;
             this.label3.Text = "Phone";
             // 
@@ -198,7 +198,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(8, 224);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 19);
+            this.label4.Size = new System.Drawing.Size(43, 23);
             this.label4.TabIndex = 3;
             this.label4.Text = "Role";
             // 
@@ -216,7 +216,9 @@
             "Cashir",
             "Waiter",
             "Cleaning",
-            "Manage"});
+            "Manager",
+            "Driver",
+            "Other"});
             this.cbRole.Location = new System.Drawing.Point(12, 246);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(175, 36);
