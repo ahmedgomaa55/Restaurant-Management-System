@@ -327,31 +327,81 @@ namespace RestarauntGui
         {
             using (RestaurantContext context = new RestaurantContext())
             {
-                var query = from m in context.TableMain
+                var query = (from m in context.TableMain
                             join d in context.TableDetails on m.MainID equals d.MainID
                             join p in context.Products on d.proID equals p.PID
                             where m.MainID == id
                             select new
                             {
-                                d.DetailID,
-                                d.proID,
-                                d.qty,
-                                d.price,
-                                Amount = d.price * d.qty
-                            };
+                                m,
+                               p,
+                                d
+                            }).ToList();
+                if (query[0].m.orderType.ToString() == "Delivery")
+                {
+                    btnDelivery.Checked = true;
+                    lblWaiter.Visible = false;
+                    lblTable.Visible = false;
+
+                }
+                else if(query[0].m.orderType.ToString() == "Take away")
+                {
+                    btnTakeAway.Checked = true;
+                    lblWaiter.Visible = false;
+                    lblTable.Visible = false;
+
+                }
+                else
+                {
+                    btnDinIn.Checked = true;
+                    lblWaiter.Visible = true;
+                    lblTable.Visible = true;
+
+                }
 
                 guna2DataGridView1.Rows.Clear();
 
-                foreach (var item in query.ToList())
+                foreach (var item in query)
                 {
-                    object[] obj = { item.DetailID, item.proID, item.qty, item.price, item.Amount };
+                    //object[] obj = { item.DetailID, item.proID, item.qty, item.price, item.Amount };
+                    //guna2DataGridView1.Rows.Add(obj);
+                    lblTable.Text = item.m.TableName.ToString();
+                    lblWaiter.Text = item.m.WaiterName.ToString();
+
+
+                    string detailid = item.d.DetailID.ToString();
+                    string proName = item.p.PName.ToString();
+
+                    string priod = item.p.PID.ToString();
+                    string qty = item.d.qty.ToString();
+                    string price = item.d.price.ToString();
+                    string amount = item.d.amount.ToString();
+                    object[] obj = { 0, detailid, priod, proName, qty, price, amount   };
                     guna2DataGridView1.Rows.Add(obj);
+
                 }
+                GetTotal();
 
 
 
             }
+            
+        }
 
+        private void btncheckout_Click(object sender, EventArgs e)
+        {
+            frmCheckout frm = new frmCheckout();
+            frm.MainID = id;
+            frm.amt = Convert.ToDouble(lblTotal.Text);
+            frm.Show();
+            //MainClass
+            mainID = 0;
+            guna2DataGridView1.Rows.Clear();
+            lblTable.Text = "";
+            lblWaiter.Text = "";
+            lblTable.Visible = false;
+            lblWaiter.Visible = false;
+            lblTotal.Text = "00";
         }
     }
 }
