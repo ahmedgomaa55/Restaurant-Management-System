@@ -296,5 +296,28 @@ namespace RestarauntGui
               
 
         }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnBillList_Click(object sender, EventArgs e)
+        {
+            frmBillList frm = new frmBillList();
+            frm.ShowDialog();
+
+            if(frm.MainID>0)
+            {
+                LoadEntries();
+            }
+        }
+
+
+       private void LoadEntries ()
+        {
+
+        }
+
     }
 }

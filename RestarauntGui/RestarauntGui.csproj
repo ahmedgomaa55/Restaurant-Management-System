@@ -62,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmBillList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBillList.Designer.cs">
+      <DependentUpon>frmBillList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCategoryAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     <Compile Include="ucProduct.designer.cs">
       <DependentUpon>ucProduct.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmBillList.resx">
+      <DependentUpon>frmBillList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCategoryAdd.resx">
       <DependentUpon>frmCategoryAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -317,6 +326,7 @@
     <None Include="Resources\Full Recycle Bin.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon\Agreement.png" />
     <Content Include="Resources\icon\BackendRequirment0.png" />
     <Content Include="Resources\icon\Bill.png" />
     <Content Include="Resources\icon\Bill2.png" />
