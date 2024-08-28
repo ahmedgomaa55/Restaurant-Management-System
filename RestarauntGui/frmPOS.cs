@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -45,7 +46,7 @@ namespace RestarauntGui
         {
             categorypanal.Controls.Clear();
 
-            if (context.Categories.Count()>0)
+            if (context.Categories.Count() > 0)
                 foreach (var item in context.Categories)
                 {
                     Guna.UI2.WinForms.Guna2Button b = new Guna.UI2.WinForms.Guna2Button();
@@ -62,7 +63,7 @@ namespace RestarauntGui
         {
             Guna.UI2.WinForms.Guna2Button b = (Guna.UI2.WinForms.Guna2Button)sender;
 
-            if(b.Text=="All Categories")
+            if (b.Text == "All Categories")
             {
                 txtSearch.Text = "1";
                 txtSearch.Text = "";
@@ -76,7 +77,7 @@ namespace RestarauntGui
             }
         }
 
-        void AddItems(string id,String proID ,string name,string cat, string price,Image image)
+        void AddItems(string id, String proID, string name, string cat, string price, Image image)
         {
             var w = new ucProduct()
             {
@@ -102,7 +103,7 @@ namespace RestarauntGui
 
 
                  }
-                 guna2DataGridView1.Rows.Add(new object[] { 0,0, wdg.ID, wdg.PName,1,wdg.PPrice, wdg.PPrice });
+                 guna2DataGridView1.Rows.Add(new object[] { 0, 0, wdg.ID, wdg.PName, 1, wdg.PPrice, wdg.PPrice });
                  GetTotal();
              };
         }
@@ -111,9 +112,9 @@ namespace RestarauntGui
             var products = context.Products;
             foreach (var item in products)
             {
-                Byte[]imagarray=(byte[])item.PImage;
+                Byte[] imagarray = (byte[])item.PImage;
                 byte[] immagbytearray = imagarray;
-                AddItems("0",item.PID.ToString(), item.PName.ToString(), item.Category.Name.ToString(), item.PPrice.ToString()
+                AddItems("0", item.PID.ToString(), item.PName.ToString(), item.Category.Name.ToString(), item.PPrice.ToString()
                     , Image.FromStream(new MemoryStream(imagarray)));
             }
         }
@@ -123,16 +124,16 @@ namespace RestarauntGui
             foreach (var item in Productpanal.Controls)
             {
                 var pro = (ucProduct)item;
-                pro.Visible = pro.PName.ToLower().Contains(txtSearch.Text.Trim().ToLower()); 
+                pro.Visible = pro.PName.ToLower().Contains(txtSearch.Text.Trim().ToLower());
             }
         }
 
-     
+
 
         private void guna2DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             int count = 0;
-            foreach(DataGridViewRow row in guna2DataGridView1.Rows)
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
             {
                 count++;
                 row.Cells[0].Value = count;
@@ -222,7 +223,7 @@ namespace RestarauntGui
 
             using (RestaurantContext context = new RestaurantContext())
             {
-               
+
 
                 if (mainID == 0)  // Insert into tblMain
                 {
@@ -267,10 +268,10 @@ namespace RestarauntGui
                     {
                         tblDetails tbl1 = new tblDetails()
                         {
-                            DetailID=detailID,
+                            DetailID = detailID,
                             MainID = mainID,
                             proID = Convert.ToInt32(row.Cells["ProID"].Value),
-                            qty= Convert.ToInt32(row.Cells["dgvQty"].Value),
+                            qty = Convert.ToInt32(row.Cells["dgvQty"].Value),
                             price = Convert.ToDouble(row.Cells["dgvprice"].Value),
                             amount = Convert.ToDouble(row.Cells["dgvAmount"].Value)
 
@@ -279,7 +280,7 @@ namespace RestarauntGui
                     }
                     else  // update 
                     {
-                        var tbl2 = context.TableDetails.Where(t=>t.DetailID==detailID).Select(t => t).FirstOrDefault();
+                        var tbl2 = context.TableDetails.Where(t => t.DetailID == detailID).Select(t => t).FirstOrDefault();
                         tbl2.proID = Convert.ToInt32(row.Cells["ProID"].Value);
                         tbl2.qty = Convert.ToInt32(row.Cells["dgvQty"].Value);
                         tbl2.price = Convert.ToDouble(row.Cells["dgvprice"].Value);
@@ -300,7 +301,7 @@ namespace RestarauntGui
                 lblTotal.Text = "00";
 
             }
-              
+
 
         }
 
@@ -308,23 +309,49 @@ namespace RestarauntGui
         {
 
         }
-
+        public int id = 0;
         private void btnBillList_Click(object sender, EventArgs e)
         {
             frmBillList frm = new frmBillList();
             frm.ShowDialog();
 
-            if(frm.MainID>0)
+            if (frm.MainID > 0)
             {
+                id = frm.MainID;
                 LoadEntries();
             }
         }
 
 
-       private void LoadEntries ()
+        private void LoadEntries()
         {
+            using (RestaurantContext context = new RestaurantContext())
+            {
+                var query = from m in context.TableMain
+                            join d in context.TableDetails on m.MainID equals d.MainID
+                            join p in context.Products on d.proID equals p.PID
+                            where m.MainID == id
+                            select new
+                            {
+                                d.DetailID,
+                                d.proID,
+                                d.qty,
+                                d.price,
+                                Amount = d.price * d.qty
+                            };
+
+                guna2DataGridView1.Rows.Clear();
+
+                foreach (var item in query.ToList())
+                {
+                    object[] obj = { item.DetailID, item.proID, item.qty, item.price, item.Amount };
+                    guna2DataGridView1.Rows.Add(obj);
+                }
+
+
+
+            }
 
         }
-
     }
 }
