@@ -228,7 +228,7 @@ namespace RestarauntGui
                 {
                     tblMain tableMain = new tblMain()
                     {
-                        MainID = mainID,
+                        //MainID = mainID,
                         aDate = Convert.ToDateTime(DateTime.Now.Date),
                         aTime = DateTime.Now.ToShortTimeString(),
                         TableName = lblTable.Text,
@@ -241,7 +241,10 @@ namespace RestarauntGui
                     };
 
                     context.TableMain.Add(tableMain);
+
+
                 }
+
                 else    // Update
                 {
                     var tableMainUpdated = context.TableMain.Where(t => t.MainID == mainID).Select(t => t).FirstOrDefault();
@@ -250,6 +253,10 @@ namespace RestarauntGui
                     tableMainUpdated.received = Convert.ToDouble(0);
                     tableMainUpdated.change = Convert.ToDouble(0);
                 }
+
+                context.SaveChanges();
+                mainID = context.TableMain.OrderByDescending(m => m.MainID).Select(c => c.MainID).FirstOrDefault();
+
 
 
                 foreach (DataGridViewRow row in guna2DataGridView1.Rows)
